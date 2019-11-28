@@ -57,4 +57,6 @@ roslaunch detectron2_ros detectron2_ros.launch
 The following arguments can be set on the `roslaunch` above.
 - `input`: image topic name
 - `detection_threshold`: threshold to filter the detection results [0, 1]
+- `visualization`: True or False to pubish the result like a image
+- `publish_rate`: Published frequency
 - `model`: path to the training model file. For example: `/detectron2/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml`
