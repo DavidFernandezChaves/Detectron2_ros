@@ -60,3 +60,16 @@ The following arguments can be set on the `roslaunch` above.
 - `visualization`: True or False to pubish the result like a image
 - `publish_rate`: Published frequency
 - `model`: path to the training model file. For example: `/detectron2/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml`
+
+## Citing Detectron
+If you use Detectron2 in your research or wish to refer to the baseline results published in the Model Zoo, please use the following BibTeX entry.
+
+```bash
+@misc{wu2019detectron2,
+  author =       {Yuxin Wu and Alexander Kirillov and Francisco Massa and
+                  Wan-Yen Lo and Ross Girshick},
+  title =        {Detectron2},
+  howpublished = {\url{https://github.com/facebookresearch/detectron2}},
+  year =         {2019}
+}
+```
