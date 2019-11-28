@@ -1,10 +1,10 @@
 # Detectron2 Object Detector for ROS
----
+
 A ROS Node for detecting objects using [Detectron2](https://github.com/facebookresearch/detectron2).
 
 
 ## Installation
-----
+
 It is necessary to install Detectron2 [requirements](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md) in a python *virtual environment* as it requires `Python 3.6` and ROS works with `Python 2.7`
 
 1. Install python Virtual Environment
@@ -23,7 +23,7 @@ $ mkvirtualenv --python=python3 $venv_name
 
 
 ## Downloading the Package
----
+
 3. Clone the package to the ROS workspace using git tools
 ```bash
 $ git clone https://github.com/DavidFernandezChaves/detectron2_ros.git
@@ -33,7 +33,7 @@ $ git submodule update --init
 ```
 
 ## Compilation
-------------
+
 4. Attention: DO NOT USE the python virtual environment previously built to compile catking packages.
 ```bash
   $ catkin_make
@@ -41,7 +41,7 @@ $ git submodule update --init
 ```
 
 ## Running
----
+
 1. First launch ROScore into a terminal.
 
 2. Next, open a new terminal and use the virtual environment created.
@@ -54,7 +54,7 @@ roslaunch detectron2_ros detectron2_ros.launch
 ```
 
 ## Arguments
----
+
 The following arguments can be set on the `roslaunch` above.
 - `input`: image topic name
 - `detection_threshold`: threshold to filter the detection results [0, 1]
