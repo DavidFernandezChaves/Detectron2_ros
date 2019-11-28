@@ -1,0 +1,13 @@
+<launch>
+  <arg name="input" default="semantic_mapping/RGB" />
+  <arg name="detection_threshold" default="0.5" />
+  <arg name="model" default="$(find detectron2_ros)/detectron2_repo/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml" />
+  <arg name="debug" default="false" />
+
+  <node pkg="detectron2_ros" type="detectron2_ros" name="detectron2_ros" output="screen" >
+    <param name="input" value="$(arg input)" />
+    <param name="detection_threshold" value="$(arg detection_threshold)" />
+    <param name="model" value="$(arg model)" />
+    <param name="debug" value="$(arg debug)" />
+  </node>
+</launch>

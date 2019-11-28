@@ -1,0 +1,4 @@
+[submodule "ROS_Stage/detectron2_repo"]
+	path = ROS_Stage/detectron2_repo
+	url = https://github.com/facebookresearch/detectron2.git
+
