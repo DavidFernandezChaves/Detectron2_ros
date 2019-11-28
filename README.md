@@ -18,7 +18,7 @@ $ sudo pip install virtualenvwrapper
 $ mkvirtualenv --python=python3 detectron2_ros
 ```
 
-[Install the dependencies](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md)
+3. [Install the dependencies in the virtual environment](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md)
 
 
 ## Downloading the Package
