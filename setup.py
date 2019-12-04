@@ -8,4 +8,4 @@ setup_args = generate_distutils_setup(
     packages=['detectron2_ros',],
     package_dir={'': 'src'})
 
-setup(**setup_args, requires=['cv2', 'numpy'])
+setup(**setup_args)

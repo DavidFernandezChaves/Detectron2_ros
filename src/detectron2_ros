@@ -36,8 +36,10 @@ class Detectron2node(object):
 
         self._visualization = rospy.get_param('~visualization', True)
         self._result_pub = rospy.Publisher('~result', Result, queue_size=1)
-        self._vis_pub = rospy.Publisher('~visualization', Image, queue_size=1)
         self._sub = rospy.Subscriber(rospy.get_param('~input'), Image, self._image_callback, queue_size=1)
+        
+        if self._visualization:
+            self._vis_pub = rospy.Publisher('~visualization', Image, queue_size=1)
 
     def run(self):
 
