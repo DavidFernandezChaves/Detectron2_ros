@@ -9,8 +9,12 @@ It is necessary to install Detectron2 [requirements](https://github.com/facebook
 
 1. Install python Virtual Environment
 ```bash
+$ sudo apt-get install python-pip
 $ sudo pip install virtualenv
+$ mkdir ~/.virtualenvs
 $ sudo pip install virtualenvwrapper
+$ export WORKON_HOME=~/.virtualenvs
+$ echo '. /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc 
 ```
 
 2. Creating Virtual Environment
