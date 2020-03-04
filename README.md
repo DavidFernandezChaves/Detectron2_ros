@@ -9,17 +9,17 @@ It is necessary to install Detectron2 [requirements](https://github.com/facebook
 
 1. Install python Virtual Environment
 ```bash
-$ sudo apt-get install python-pip
-$ sudo pip install virtualenv
-$ mkdir ~/.virtualenvs
-$ sudo pip install virtualenvwrapper
-$ export WORKON_HOME=~/.virtualenvs
-$ echo '. /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc 
+sudo apt-get install python-pip
+sudo pip install virtualenv
+mkdir ~/.virtualenvs
+sudo pip install virtualenvwrapper
+export WORKON_HOME=~/.virtualenvs
+echo '. /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc 
 ```
 
 2. Creating Virtual Environment
 ```bash
-$ mkvirtualenv --python=python3 detectron2_ros
+mkvirtualenv --python=python3 detectron2_ros
 ```
 
 3. [Install the dependencies in the virtual environment](https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md)
@@ -29,18 +29,18 @@ $ mkvirtualenv --python=python3 detectron2_ros
 
 3. Clone the package to the ROS workspace using git tools
 ```bash
-$ git clone https://github.com/DavidFernandezChaves/detectron2_ros.git
-$ cd detectron2_ros
-$ git pull --all
-$ git submodule update --init
+git clone https://github.com/DavidFernandezChaves/detectron2_ros.git
+cd detectron2_ros
+git pull --all
+git submodule update --init
 ```
 
 ## Compilation
 
 4. Attention: DO NOT USE the python virtual environment previously built to compile catking packages.
 ```bash
-  $ catkin_make
-  $ source $HOME/.bashrc
+catkin_make
+source $HOME/.bashrc
 ```
 
 ## Running
