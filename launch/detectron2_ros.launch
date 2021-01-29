@@ -1,8 +1,8 @@
 <launch>
-  <arg name="input" default="vimantic/RGB" />
+  <arg name="input" default="ViMantic/ToCNN" />
   <arg name="detection_threshold" default="0.5" />
   <arg name="model" default="$(find detectron2_ros)/detectron2/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml" />
-  <arg name="visualization" default="true" />
+  <arg name="visualization" default="false" />
   <arg name="publish_rate" default="100" />
 
   <node pkg="detectron2_ros" type="detectron2_ros" name="detectron2_ros" output="screen" >
