@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import sys
 import threading
+import time
 
 import cv2 as cv
 import numpy as np
@@ -18,32 +19,31 @@ from sensor_msgs.msg import Image, RegionOfInterest
 
 class Detectron2node(object):
     def __init__(self):
+        rospy.logwarn("Initializing")
         setup_logger()
 
         self._bridge = CvBridge()
         self._last_msg = None
         self._msg_lock = threading.Lock()
-
-        self._publish_rate = rospy.get_param('~publish_rate', 100)
+        self._image_counter = 0
 
         self.cfg = get_cfg()
-        self.cfg.merge_from_file(rospy.get_param('~model'))
-        self.cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = rospy.get_param(
-            '~detection_threshold')  # set threshold for this model
+        self.cfg.merge_from_file(self.load_param('~model'))
+        self.cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = self.load_param('~detection_threshold') # set threshold for this model
         self.cfg.MODEL.WEIGHTS = "detectron2://COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl"
         self.predictor = DefaultPredictor(self.cfg)
         self._class_names = MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]).get("thing_classes", None)
 
-        self._visualization = rospy.get_param('~visualization', True)
+        self._visualization = self.load_param('~visualization',True)
         self._result_pub = rospy.Publisher('~result', Result, queue_size=1)
-        self._sub = rospy.Subscriber(rospy.get_param('~input'), Image, self._image_callback, queue_size=1)
-        
-        if self._visualization:
-            self._vis_pub = rospy.Publisher('~visualization', Image, queue_size=1)
+        self._vis_pub = rospy.Publisher('~visualization', Image, queue_size=1)
+        self._sub = rospy.Subscriber(self.load_param('~input'), Image, self.callback_image, queue_size=1)
+        self.start_time = time.time()
+        rospy.logwarn("Initialized")
 
     def run(self):
 
-        rate = rospy.Rate(self._publish_rate)
+        rate = rospy.Rate(100)
         while not rospy.is_shutdown():
             if self._msg_lock.acquire(False):
                 img_msg = self._last_msg
@@ -54,6 +54,11 @@ class Detectron2node(object):
                 continue
 
             if img_msg is not None:
+                self._image_counter = self._image_counter + 1
+                if (self._image_counter % 11) == 10:
+                    rospy.loginfo("Images detected per second=%.2f",
+                                  float(self._image_counter) / (time.time() - self.start_time))
+
                 np_image = self.convert_to_cv_image(img_msg)
 
                 outputs = self.predictor(np_image)
@@ -70,7 +75,6 @@ class Detectron2node(object):
 
                     image_msg = self._bridge.cv2_to_imgmsg(img)
                     self._vis_pub.publish(image_msg)
-
 
             rate.sleep()
 
@@ -132,14 +136,18 @@ class Detectron2node(object):
 
         return cv_img
 
-    def _image_callback(self, msg):
+    def callback_image(self, msg):
         rospy.logdebug("Get an image")
         if self._msg_lock.acquire(False):
             self._last_msg = msg
             self._header = msg.header
             self._msg_lock.release()
 
-
+    @staticmethod
+    def load_param(param, default=None):
+        new_param = rospy.get_param(param, default)
+        rospy.loginfo("[Detectron2] %s: %s", param, new_param)
+        return new_param
 
 def main(argv):
     rospy.init_node('detectron2_ros')
