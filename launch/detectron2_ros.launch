@@ -4,7 +4,7 @@
   <arg name="model" default="$(find detectron2_ros)/detectron2/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml" />
   <arg name="visualization" default="false" />
 
-  <node pkg="detectron2_ros" type="detectron2_ros" name="detectron2_ros" output="screen" >
+  <node pkg="detectron2_ros" type="detectron2_ros.py" name="detectron2_ros" output="screen" >
     <param name="input" value="$(arg input)" />
     <param name="detection_threshold" value="$(arg detection_threshold)" />
     <param name="model" value="$(arg model)" />
