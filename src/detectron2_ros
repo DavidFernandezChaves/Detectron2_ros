@@ -28,9 +28,9 @@ class Detectron2node(object):
         self._image_counter = 0
 
         self.cfg = get_cfg()
-        self.cfg.merge_from_file(self.load_param('~model'))
+        self.cfg.merge_from_file(self.load_param('~config'))
         self.cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = self.load_param('~detection_threshold') # set threshold for this model
-        self.cfg.MODEL.WEIGHTS = "detectron2://COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl"
+        self.cfg.MODEL.WEIGHTS = self.load_param('~model')
         self.predictor = DefaultPredictor(self.cfg)
         self._class_names = MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]).get("thing_classes", None)
 
